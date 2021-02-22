@@ -5,8 +5,8 @@
     "main.css": "/E-commerce-front-end/static/css/main.2c667ec5.chunk.css",
     "main.js": "/E-commerce-front-end/static/js/main.ed9fe5ed.chunk.js",
     "main.js.map": "/E-commerce-front-end/static/js/main.ed9fe5ed.chunk.js.map",
-    "runtime-main.js": "/E-commerce-front-end/static/js/runtime-main.ac2228a3.js",
-    "runtime-main.js.map": "/E-commerce-front-end/static/js/runtime-main.ac2228a3.js.map",
+    "runtime-main.js": "/E-commerce-front-end/static/js/runtime-main.abd37fd5.js",
+    "runtime-main.js.map": "/E-commerce-front-end/static/js/runtime-main.abd37fd5.js.map",
     "static/js/3.b4f27939.chunk.js": "/E-commerce-front-end/static/js/3.b4f27939.chunk.js",
     "static/js/3.b4f27939.chunk.js.map": "/E-commerce-front-end/static/js/3.b4f27939.chunk.js.map",
     "static/css/4.15cde778.chunk.css": "/E-commerce-front-end/static/css/4.15cde778.chunk.css",
@@ -45,7 +45,7 @@
     "static/css/15.4f5b5c10.chunk.css": "/E-commerce-front-end/static/css/15.4f5b5c10.chunk.css",
     "static/js/15.7ab980a0.chunk.js": "/E-commerce-front-end/static/js/15.7ab980a0.chunk.js",
     "static/js/15.7ab980a0.chunk.js.map": "/E-commerce-front-end/static/js/15.7ab980a0.chunk.js.map",
-    "static/css/16.95a3a2bd.chunk.css": "/E-commerce-front-end/static/css/16.95a3a2bd.chunk.css",
+    "static/css/16.5f33857f.chunk.css": "/E-commerce-front-end/static/css/16.5f33857f.chunk.css",
     "static/js/16.51bbcf1f.chunk.js": "/E-commerce-front-end/static/js/16.51bbcf1f.chunk.js",
     "static/js/16.51bbcf1f.chunk.js.map": "/E-commerce-front-end/static/js/16.51bbcf1f.chunk.js.map",
     "static/css/17.460a253a.chunk.css": "/E-commerce-front-end/static/css/17.460a253a.chunk.css",
@@ -58,7 +58,7 @@
     "static/css/13.2fd82050.chunk.css.map": "/E-commerce-front-end/static/css/13.2fd82050.chunk.css.map",
     "static/css/14.62371aa7.chunk.css.map": "/E-commerce-front-end/static/css/14.62371aa7.chunk.css.map",
     "static/css/15.4f5b5c10.chunk.css.map": "/E-commerce-front-end/static/css/15.4f5b5c10.chunk.css.map",
-    "static/css/16.95a3a2bd.chunk.css.map": "/E-commerce-front-end/static/css/16.95a3a2bd.chunk.css.map",
+    "static/css/16.5f33857f.chunk.css.map": "/E-commerce-front-end/static/css/16.5f33857f.chunk.css.map",
     "static/css/17.460a253a.chunk.css.map": "/E-commerce-front-end/static/css/17.460a253a.chunk.css.map",
     "static/css/4.15cde778.chunk.css.map": "/E-commerce-front-end/static/css/4.15cde778.chunk.css.map",
     "static/css/5.6a53c5fb.chunk.css.map": "/E-commerce-front-end/static/css/5.6a53c5fb.chunk.css.map",
@@ -72,7 +72,7 @@
     "static/js/6.f435c470.chunk.js.LICENSE.txt": "/E-commerce-front-end/static/js/6.f435c470.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
-    "static/js/runtime-main.ac2228a3.js",
+    "static/js/runtime-main.abd37fd5.js",
     "static/js/3.b4f27939.chunk.js",
     "static/css/main.2c667ec5.chunk.css",
     "static/js/main.ed9fe5ed.chunk.js"
