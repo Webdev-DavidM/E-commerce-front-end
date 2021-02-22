@@ -3,15 +3,15 @@
     "static/js/0.f07e21fc.chunk.js": "/E-commerce-front-end/static/js/0.f07e21fc.chunk.js",
     "static/js/0.f07e21fc.chunk.js.map": "/E-commerce-front-end/static/js/0.f07e21fc.chunk.js.map",
     "main.css": "/E-commerce-front-end/static/css/main.2c667ec5.chunk.css",
-    "main.js": "/E-commerce-front-end/static/js/main.ed9fe5ed.chunk.js",
-    "main.js.map": "/E-commerce-front-end/static/js/main.ed9fe5ed.chunk.js.map",
-    "runtime-main.js": "/E-commerce-front-end/static/js/runtime-main.70ccaab7.js",
-    "runtime-main.js.map": "/E-commerce-front-end/static/js/runtime-main.70ccaab7.js.map",
+    "main.js": "/E-commerce-front-end/static/js/main.9e86dd5b.chunk.js",
+    "main.js.map": "/E-commerce-front-end/static/js/main.9e86dd5b.chunk.js.map",
+    "runtime-main.js": "/E-commerce-front-end/static/js/runtime-main.475405aa.js",
+    "runtime-main.js.map": "/E-commerce-front-end/static/js/runtime-main.475405aa.js.map",
     "static/js/3.b4f27939.chunk.js": "/E-commerce-front-end/static/js/3.b4f27939.chunk.js",
     "static/js/3.b4f27939.chunk.js.map": "/E-commerce-front-end/static/js/3.b4f27939.chunk.js.map",
     "static/css/4.15cde778.chunk.css": "/E-commerce-front-end/static/css/4.15cde778.chunk.css",
-    "static/js/4.36ba3a98.chunk.js": "/E-commerce-front-end/static/js/4.36ba3a98.chunk.js",
-    "static/js/4.36ba3a98.chunk.js.map": "/E-commerce-front-end/static/js/4.36ba3a98.chunk.js.map",
+    "static/js/4.f262c07b.chunk.js": "/E-commerce-front-end/static/js/4.f262c07b.chunk.js",
+    "static/js/4.f262c07b.chunk.js.map": "/E-commerce-front-end/static/js/4.f262c07b.chunk.js.map",
     "static/css/5.6a53c5fb.chunk.css": "/E-commerce-front-end/static/css/5.6a53c5fb.chunk.css",
     "static/js/5.a616170f.chunk.js": "/E-commerce-front-end/static/js/5.a616170f.chunk.js",
     "static/js/5.a616170f.chunk.js.map": "/E-commerce-front-end/static/js/5.a616170f.chunk.js.map",
@@ -72,9 +72,9 @@
     "static/js/6.f435c470.chunk.js.LICENSE.txt": "/E-commerce-front-end/static/js/6.f435c470.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
-    "static/js/runtime-main.70ccaab7.js",
+    "static/js/runtime-main.475405aa.js",
     "static/js/3.b4f27939.chunk.js",
     "static/css/main.2c667ec5.chunk.css",
-    "static/js/main.ed9fe5ed.chunk.js"
+    "static/js/main.9e86dd5b.chunk.js"
   ]
 }
