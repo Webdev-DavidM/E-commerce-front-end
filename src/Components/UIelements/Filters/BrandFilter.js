@@ -108,7 +108,7 @@ class BrandFilter extends Component {
               Reset all filters
             </button>
           </div>
-          git push
+      
         </div>
       </>
     );
