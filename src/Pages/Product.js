@@ -207,6 +207,7 @@ class Product extends Component {
                     -
                   </button>
                   <input
+                    class='quantityinput'
                     onChange={(e) =>
                       this.setState({ quantity: e.target.value })
                     }

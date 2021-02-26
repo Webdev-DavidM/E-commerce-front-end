@@ -10,6 +10,10 @@
   font-size: 2rem;
   margin: 0;
 }
+
+.quantityinput {
+  background-color: white;
+}
 .basketmodal {
   position: absolute;
   width: 100%;
