@@ -41,7 +41,6 @@ class Reviews extends Component {
         }>
         {this.state.averageReviewRating &&
           this.state.stars.map((star, index) => {
-            console.log(star);
             let colour =
               star <= this.state.averageReviewRating ? '#f1c40f' : null;
             return (

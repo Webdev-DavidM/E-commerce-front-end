@@ -25,28 +25,29 @@ class ShoppingBasket extends Component {
 
     // here we check if there is something in the basket which means the user has come
     // from the product screen, if so then add to local storage
-
-    let localStorageItems = Object.keys(localStorage);
-    localStorageItems.map((item) => {
-      return item !== 'userInfo' && localStorage.removeItem(`${item}`);
-    });
-    basket.map((item, index) => {
-      return localStorage.setItem(`item${index}`, JSON.stringify(item));
-    });
+    if (basket.length !== 0) {
+      let localStorageItems = Object.keys(localStorage);
+      localStorageItems.map((item) => {
+        return item !== 'userInfo' && localStorage.removeItem(`${item}`);
+      });
+      basket.map((item, index) => {
+        return localStorage.setItem(`item${index}`, JSON.stringify(item));
+      });
+    }
 
     // here we check if the page has been refreshed and there is nothing in the basket, if there
     // is an item in local storage then dispatch it to be added to basket in redux so it can populate this screen
-    // let localStorageItems = Object.keys(localStorage);
-    // let itemsFromLocalStorage = localStorageItems.map((item) =>
-    //   JSON.parse(localStorage.getItem(`${item}`))
-    // );
+    let localStorageItems = Object.keys(localStorage);
+    let itemsFromLocalStorage = localStorageItems.map((item) =>
+      JSON.parse(localStorage.getItem(`${item}`))
+    );
 
-    // if (basket.length === 0 && itemsFromLocalStorage)
-    //   // Here I will store the basket in local storage and reload if the user refreshes the page,
-    //   // I am mapping over the array and adding each item at a time which is what the reducer is expecting
-    //   itemsFromLocalStorage.map((item) => {
-    //     return item['firstName'] === undefined && addBasket(item);
-    //   });
+    if (basket.length === 0 && itemsFromLocalStorage)
+      // Here I will store the basket in local storage and reload if the user refreshes the page,
+      // I am mapping over the array and adding each item at a time which is what the reducer is expecting
+      itemsFromLocalStorage.map((item) => {
+        return item['firstName'] === undefined && addBasket(item);
+      });
   };
 
   isUserSignedIn = () => {
