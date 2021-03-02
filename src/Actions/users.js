@@ -6,7 +6,7 @@ export const userSignIn = (email, password) => {
     try {
       let response = await axios({
         method: 'post',
-        url: 'https://my-ecommerce-site-fitness.herokuapp.com/users/login',
+        url: `${process.env.REACT_APP_BACK_END_URL}/users/login`,
         data: {
           email,
           password,
@@ -55,7 +55,7 @@ export const userSignUp = ({
     try {
       let response = await axios({
         method: 'post',
-        url: 'https://my-ecommerce-site-fitness.herokuapp.com/users/register',
+        url: `${process.env.REACT_APP_BACK_END_URL}/users/register`,
         data: {
           email,
           password,

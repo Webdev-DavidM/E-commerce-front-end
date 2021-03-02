@@ -5,7 +5,7 @@ export const getProducts = (category) => {
     dispatch({ type: 'PRODUCTS_REQUESTED' });
     try {
       let response = await axios(
-        `https://my-ecommerce-site-fitness.herokuapp.com/products/${category}`
+        `${process.env.REACT_APP_BACK_END_URL}/products/${category}`
       );
       if (response.status === 200) {
         // Here I will check each products for reviews and give them an average review rating, products with no review
@@ -40,7 +40,7 @@ export const returnAllProducts = () => {
     dispatch({ type: 'ALLPRODUCTS_STARTED' });
     try {
       let response = await axios(
-        `https://my-ecommerce-site-fitness.herokuapp.com/products/all`
+        `${process.env.REACT_APP_BACK_END_URL}/products/all`
       );
       if (response.status === 200) {
         dispatch({
@@ -62,7 +62,7 @@ export const getProduct = (id) => {
     dispatch({ type: 'PRODUCTS_REQUESTED' });
     try {
       let response = await axios(
-        `https://my-ecommerce-site-fitness.herokuapp.com/products/product/${id}`
+        `${process.env.REACT_APP_BACK_END_URL}/products/product/${id}`
       );
       if (response.status === 200) {
         dispatch({ type: 'PRODUCT_SUCCESS', product: response.data });
@@ -82,7 +82,7 @@ export const submitReview = ({ productId, ...data }) => {
     try {
       let response = await axios({
         method: 'post',
-        url: `https://my-ecommerce-site-fitness.herokuapp.com/products/review/${productId}`,
+        url: `${process.env.REACT_APP_BACK_END_URL}/products/review/${productId}`,
         data: {
           data,
         },

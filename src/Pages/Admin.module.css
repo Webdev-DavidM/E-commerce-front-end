@@ -6,11 +6,17 @@
 
 .title {
   display: flex;
-  justify-content: space-between;
+  justify-content: space-evenly;
+  flex-wrap: wrap;
 }
 
 .title {
   background-color: #ecf0f1;
+}
+
+.title p {
+  width: 100%;
+  text-align: center;
 }
 
 .categorybtns {
@@ -26,8 +32,19 @@
 }
 .createbtn {
   width: 8rem;
-  height: 2.5rem;
+  height: 2rem;
   background-color: #f39c12;
+  border: none;
+  border-radius: 3px;
+  color: #ecf0f1;
+  transition: all 0.3s;
+  margin-right: 1rem;
+}
+
+.logoutbtn {
+  width: 8rem;
+  height: 2rem;
+  background-color: #bdc3c7;
   border: none;
   border-radius: 3px;
   color: #ecf0f1;
@@ -37,6 +54,12 @@
 
 .createbtn:hover {
   background-color: #e67e22;
+  cursor: pointer;
+}
+
+.logoutbtn:hover {
+  background-color: #7f8c8d;
+  cursor: pointer;
 }
 
 .categorybtns button {
@@ -44,6 +67,7 @@
   margin: 0.5rem;
   min-width: 4rem;
   display: flex;
+  padding: 1rem;
   align-items: center;
   justify-content: center;
   border: none;
@@ -56,6 +80,7 @@
 
 .categorybtns button:hover {
   background-color: #2980b9;
+  cursor: pointer;
 }
 
 .productlist {
@@ -106,6 +131,7 @@
 .editbtn:hover {
   background-color: #27ae60;
   color: #ecf0f1;
+  cursor: pointer;
 }
 
 .deletebtn {
@@ -116,6 +142,7 @@
 
 .deletebtn:hover {
   background-color: #c0392b;
+  cursor: pointer;
 }
 
 @media only screen and (min-width: 768px) {

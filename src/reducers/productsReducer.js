@@ -35,11 +35,6 @@ const initialState = {
       shorts: ['Swimming shorts', 'Swimming briefs'],
       swimsuits: ['One piece', 'Two piece'],
     },
-
-    outdoors: {
-      clothing: ['Tops', 'Legwear'],
-      footWear: ['Trail shoes', 'Boots'],
-    },
   },
 };
 

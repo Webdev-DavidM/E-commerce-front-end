@@ -4,7 +4,7 @@ const initialState = {
     lastName: null,
     id: null,
     token: '',
-    isAdmin: null,
+    admin: null,
   },
   error: null,
   loading: false,
@@ -16,7 +16,7 @@ function usersReducer(state = initialState, action) {
     case 'LOGIN_STARTED':
       return { ...state, loading: true };
     case 'USER_LOGGED_OUT':
-      return { ...state, signedIn: false };
+      return { ...state, signedIn: false, admin: false };
     case 'LOGIN_SUCCESS':
       return {
         ...state,
@@ -26,7 +26,6 @@ function usersReducer(state = initialState, action) {
         error: null,
       };
     case 'LOGIN_FAIL':
-      console.log(action);
       return { ...state, error: action.error, loading: false };
     default:
       return state;

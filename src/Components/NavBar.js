@@ -30,6 +30,7 @@ import {
 
 class NavBar extends Component {
   render() {
+    console.log(this.props.admin);
     // Destructuring for mapStateToProps
     let { showDrop, showSide, showSubCat, signedIn } = this.props;
 
@@ -46,6 +47,7 @@ class NavBar extends Component {
         <div>
           <div className={styles.navbar}>
             <Logo size='2rem' />
+
             <div
               className={styles.user}
               onMouseEnter={() => showSideMenu(true)}
@@ -54,10 +56,7 @@ class NavBar extends Component {
                 height: '1.3rem',
                 color: '#ecf0f1',
               }}>
-              {/* // i have may add a store feature using google maps in the future
-              <i
-                className='fas fa-store'
-                style={{ width: '100%', height: '100%' }}></i> */}
+              {' '}
             </div>
 
             <SearchBar />
@@ -78,16 +77,24 @@ class NavBar extends Component {
                 className='fas fa-user'
                 style={{ width: '100%', height: '100%' }}></i>
             </div>
+            {this.props.admin ? (
+              <Link className={styles.admin} to='/admin'>
+                Admin
+              </Link>
+            ) : null}
             <Basket />
             <div className={styles.links}>
               {signedIn ? (
-                <Link to='/account'>Your Account</Link>
+                !this.props.admin ? (
+                  <Link to='/account'>Your Account</Link>
+                ) : (
+                  <Link to='/admin'>Admin</Link>
+                )
               ) : (
                 <Link to='/sign-in'>Sign in</Link>
               )}
               {/* {Below are two features I will add later} */}
-              {/* <Link to='/admin'>Admin</Link>
-              <Link to='/stores'>Stores</Link> */}
+              <Link to='/stores'>Stores</Link>
             </div>
           </div>
         </div>
@@ -172,6 +179,7 @@ const mapStateToProps = (state) => {
     showSide: state.products.showSideMenu,
     showDrop: state.products.showDropDownMenu,
     signedIn: state.user.signedIn,
+    admin: state.user.admin,
   };
 };
 

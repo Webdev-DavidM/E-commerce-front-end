@@ -14,6 +14,7 @@ import { CSSTransition } from 'react-transition-group';
 import { CircularProgress } from '@material-ui/core';
 import { connect } from 'react-redux';
 import PrivateRoute from './Components/PrivateRoute';
+import AdminRoute from './Components/AdminRoute.js';
 
 /* Css */
 
@@ -149,14 +150,16 @@ class App extends Component {
                   exact
                   path='/check-out'
                   component={Checkout}></PrivateRoute>
-                <Route exact path='/admin'>
-                  {adminUser ? <AdminProducts /> : <Redirect to='/' />}
-                </Route>
-                <Route
+
+                <AdminRoute
                   exact
-                  path='/admin/create-product'
-                  component={AdminCreateProduct}
-                />
+                  path='/admin'
+                  component={AdminProducts}></AdminRoute>
+                <AdminRoute
+                  exact
+                  path='/admin/create'
+                  component={AdminCreateProduct}></AdminRoute>
+
                 <Route
                   exact
                   path='/admin/product/:id'

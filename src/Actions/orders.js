@@ -6,7 +6,7 @@ export const sendOrderToServer = (orderInfo) => {
     try {
       let response = await axios({
         method: 'post',
-        url: `https://my-ecommerce-site-fitness.herokuapp.com/orders/new-order`,
+        url: `${process.env.REACT_APP_BACK_END_URL}/orders/new-order`,
         data: {
           orderInfo,
         },
@@ -36,7 +36,7 @@ export const getIndividualOrder = (orderId) => {
     try {
       let response = await axios({
         method: 'get',
-        url: `https://my-ecommerce-site-fitness.herokuapp.com/orders/order/${orderId}`,
+        url: `${process.env.REACT_APP_BACK_END_URL}/orders/order/${orderId}`,
 
         headers: {
           token: userInfo.token,
@@ -58,7 +58,7 @@ export const getOrdersForUser = ({ token, user }) => {
     try {
       let response = await axios({
         method: 'get',
-        url: `https://my-ecommerce-site-fitness.herokuapp.com/orders/${user}`,
+        url: `${process.env.REACT_APP_BACK_END_URL}/orders/${user}`,
         headers: {
           token: token,
         },

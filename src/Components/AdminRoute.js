@@ -1,11 +1,12 @@
 import { Redirect } from 'react-router-dom';
 import { isTokenValid } from '../Actions/users.js';
 
-const PrivateRoute = ({ component: Component }) => {
+const AdminRoute = ({ component: Component }) => {
   let authUser = isTokenValid();
-  if (authUser) {
+  console.log(authUser);
+  if (authUser && authUser.admin) {
     return <Component />;
   } else return <Redirect to='/' />;
 };
 
-export default PrivateRoute;
+export default AdminRoute;

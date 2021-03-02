@@ -41,7 +41,8 @@ input {
   background-color: rgba(236, 240, 241, 1);
 }
 
-.signin button {
+.signin button,
+.signup button {
   margin: 1rem auto;
   width: 100%;
   padding: 0;
@@ -53,7 +54,8 @@ input {
   color: white;
 }
 
-.signin button:hover {
+.signin button:hover,
+.signup button:hover {
   background-color: #e67e22;
 }
 
