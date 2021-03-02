@@ -85,17 +85,21 @@ class App extends Component {
     // here we check if the page has been refreshed and there is nothing in the basket, if there
     // is an item in local storage then dispatch it to be added to basket in redux so it can populate this screen
     let localStorageItems = Object.keys(localStorage);
-    console.log(localStorageItems);
-    let itemsFromLocalStorage = localStorageItems.map((item) => {
-      return JSON.parse(localStorage.getItem(`${item}`));
+    let itemsFromLocalStorage = localStorageItems.filter((item) => {
+      // I found a bug where another one of my websites was also storing local storage which crashed my app, so now I
+      // I am using regExp below to make sure that it is an item I am adding to the basket and not someone elses local
+      // storage items
+      let re = /^item/;
+      return re.test(item) === true;
     });
+    // return  && JSON.parse(localStorage.getItem(`${item}`));
 
     if (basket.length === 0 && itemsFromLocalStorage)
       // Here I will store the basket in local storage and reload if the user refreshes the page,
       // I am mapping over the array and adding each item at a time which is what the reducer is expecting
       itemsFromLocalStorage.map((item) => {
-        console.log(item);
-        return item['firstName'] === undefined && addBasket(item);
+        let parsedItem = JSON.parse(localStorage.getItem(item));
+        return addBasket(parsedItem);
       });
   };
 

@@ -60,6 +60,11 @@ class Product extends Component {
     }
   };
 
+  continueShopping = () => {
+    this.addToBasket();
+    this.setState({ showBasketModal: false });
+  };
+
   addToBasket = () => {
     /* Destructuring action creators */
     let { addProductToBasket } = this.props;
@@ -144,7 +149,7 @@ class Product extends Component {
                     &nbsp;Added to cart{' '}
                   </h2>
                   <button
-                    onClick={() => this.setState({ showBasketModal: false })}
+                    onClick={() => this.continueShopping()}
                     className={styles.continueshoppingbtn}>
                     Continue shopping
                   </button>
