@@ -13,6 +13,7 @@ import Navbar from './Components/NavBar';
 import { CSSTransition } from 'react-transition-group';
 import { CircularProgress } from '@material-ui/core';
 import { connect } from 'react-redux';
+import PrivateRoute from './Components/PrivateRoute';
 
 /* Css */
 
@@ -140,32 +141,17 @@ class App extends Component {
                 <Route exact path='/run' component={MainCategory} />
                 <Route exact path='/cycle' component={MainCategory} />
                 <Route exact path='/swim' component={MainCategory} />
-                <Route
+                <PrivateRoute
                   exact
                   path='/account'
-                  render={() => {
-                    let authenticatedUser = isTokenValid();
-                    return authenticatedUser ? (
-                      <Account />
-                    ) : (
-                      <Redirect to='/' />
-                    );
-                  }}
-                />
+                  component={Account}></PrivateRoute>
+                <PrivateRoute
+                  exact
+                  path='/check-out'
+                  component={Checkout}></PrivateRoute>
                 <Route exact path='/admin'>
                   {adminUser ? <AdminProducts /> : <Redirect to='/' />}
                 </Route>
-                <Route
-                  exact
-                  path='/check-out'
-                  render={() => {
-                    let authenticatedUser = isTokenValid();
-                    return authenticatedUser ? (
-                      <Checkout />
-                    ) : (
-                      <Redirect to='/' />
-                    );
-                  }}></Route>
                 <Route
                   exact
                   path='/admin/create-product'
