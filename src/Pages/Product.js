@@ -61,7 +61,6 @@ class Product extends Component {
   };
 
   continueShopping = () => {
-    this.addToBasket();
     this.setState({ showBasketModal: false });
   };
 
