@@ -24,8 +24,19 @@ class CheckoutItem extends Component {
   };
 
   removeItem = (id, localStorageKey) => {
-    this.props.deleteItem(id);
-    localStorage.removeItem(`${localStorageKey}`);
+    let { size } = this.props.details;
+    let data = { id, size };
+    this.props.deleteItem(data);
+
+    let itemToDeleteFromStorage = this.props.basket.filter(
+      (item) => item.id === id && item.size === this.props.details.size
+    );
+
+    // find the item in the basket via the id, then get the localstorage key and pass irt to the
+    // function below to remove the right one
+    localStorage.removeItem(
+      `item${itemToDeleteFromStorage[0].localStorageKey}`
+    );
   };
 
   adjustQuantity = (operator) => {

@@ -67,6 +67,7 @@ class Product extends Component {
   addToBasket = () => {
     /* Destructuring action creators */
     let { addProductToBasket } = this.props;
+    console.log(this.props.basket.length);
 
     /* Destructuring state from redux */
     let { images, price, _id, name } = this.props.product;
@@ -80,6 +81,7 @@ class Product extends Component {
         id: _id,
         price: price,
         images: images,
+        localStorageKey: this.props.basket.length,
       };
       addProductToBasket(itemInfo);
       this.setState({ showBasketModal: true });
@@ -260,7 +262,10 @@ class Product extends Component {
 }
 
 const mapStateToProps = (state) => {
-  return { product: state.products.selectedProduct };
+  return {
+    product: state.products.selectedProduct,
+    basket: state.products.basket,
+  };
 };
 
 const mapDispatchToProps = (dispatch) => {

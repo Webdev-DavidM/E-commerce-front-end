@@ -154,8 +154,9 @@ function productsReducer(state = initialState, action) {
     case 'DELETE_ITEM_FROM_BASKET':
       let newBasketCopy = [...state.basket];
       let indexOfItem = newBasketCopy.findIndex(
-        (item) => item.id === action.id
+        (item) => item.id === action.id && item.size === action.size
       );
+      console.log(indexOfItem);
       newBasketCopy.splice(indexOfItem, 1);
       return { ...state, basket: newBasketCopy };
     case 'ADD_TO_BASKET':

@@ -187,8 +187,8 @@ export const chosenBrand = (brand) => {
   return { type: 'CHOSEN_BRAND', brand };
 };
 
-export const deleteItemFromBasket = (id) => {
-  return { type: 'DELETE_ITEM_FROM_BASKET', id };
+export const deleteItemFromBasket = ({ id, size }) => {
+  return { type: 'DELETE_ITEM_FROM_BASKET', id, size };
 };
 
 export const emptyBasket = (id) => {
