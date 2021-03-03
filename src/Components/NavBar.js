@@ -77,7 +77,7 @@ class NavBar extends Component {
                 className='fas fa-user'
                 style={{ width: '100%', height: '100%' }}></i>
             </div>
-            {this.props.admin ? (
+            {signedIn && this.props.admin ? (
               <Link className={styles.admin} to='/admin'>
                 Admin
               </Link>
@@ -179,7 +179,8 @@ const mapStateToProps = (state) => {
     showSide: state.products.showSideMenu,
     showDrop: state.products.showDropDownMenu,
     signedIn: state.user.signedIn,
-    admin: state.user.admin,
+    admin: state.user.user.admin,
+    products: state.products.products,
   };
 };
 

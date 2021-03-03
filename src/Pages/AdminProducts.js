@@ -10,8 +10,14 @@ import styles from './Admin.module.css';
 /* Action creators */
 
 import { logUserOut } from '../Actions/users.js';
+import { getProducts } from '../Actions/products.js';
 
 class AdminProducts extends Component {
+  componentDidMount = () => {
+    let { displayCategory } = this.props;
+    displayCategory('cycle');
+  };
+
   editProduct = (id) => {};
 
   deleteProduct = (id) => {};
@@ -20,7 +26,10 @@ class AdminProducts extends Component {
     this.props.history.push('/admin/create');
   };
 
-  chosenCategory = (category) => {};
+  chosenCategory = (cat) => {
+    let { displayCategory } = this.props;
+    displayCategory(cat);
+  };
 
   logOut = () => {
     this.props.logOut();
@@ -28,10 +37,9 @@ class AdminProducts extends Component {
   };
 
   render() {
-    console.log(this.props.categories);
-    let { categories } = this.props;
+    let { categories, products } = this.props;
     let categoryNames = Object.keys(categories);
-    console.log(categories, categoryNames);
+
     return (
       <div className={styles.adminproducts}>
         <header className={styles.title}>
@@ -49,24 +57,24 @@ class AdminProducts extends Component {
         <div className={styles.categorybtns}>
           <p>CATEGORIES</p>
           {categoryNames.map((cat) => (
-            <button>{cat}</button>
+            <button onClick={() => this.chosenCategory(cat)}>{cat}</button>
           ))}
         </div>
         <div className={styles.productlist}>
-          <div className={styles.productitem}>
-            <span>ID: 32879741</span>
-            <span>Name: Vitus bike</span>
-            <span>Price: £599</span>
-            <span>SubCategory: Road Bikes</span>
-            <span>Brand: Vitus</span>
-            <div className={styles.buttoncontainer}>
-              <button className={styles.editbtn}>Edit</button>
-              <button className={styles.deletebtn}>Delete</button>
-            </div>
-          </div>
-          <div className={styles.productitem}>d</div>
-          <div className={styles.productitem}>d</div>
-          <div className={styles.productitem}>d</div>
+          {products.map((product) => {
+            return (
+              <div className={styles.productitem}>
+                <span>Name: {product.name}</span>
+                <span>Price: £{product.price}</span>
+                <span>SubCategory: {product.subcat}</span>
+                <span>Brand: {product.brand}</span>
+                <div className={styles.buttoncontainer}>
+                  <button className={styles.editbtn}>Edit</button>
+                  <button className={styles.deletebtn}>Delete</button>
+                </div>
+              </div>
+            );
+          })}
         </div>
       </div>
     );
@@ -75,15 +83,14 @@ class AdminProducts extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    products: state.products,
+    products: state.products.products,
     categories: state.products.categories,
   };
 };
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    // deleteItem:,
-    // editItem:
+    displayCategory: (cat) => dispatch(getProducts(cat)),
     logOut: () => dispatch(logUserOut()),
   };
 };
