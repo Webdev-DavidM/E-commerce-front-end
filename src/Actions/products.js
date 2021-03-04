@@ -202,3 +202,38 @@ export const resetFilterAll = (bool) => {
 export const updatePriceFilter = ({ price, higher }) => {
   return { type: 'UPDATE_PRICE_RANGE', price, higher };
 };
+
+/* Admin action creators to create, delete or edit a product below */
+
+export const createProduct = ({ admin, formData }) => {
+  return async (dispatch) => {
+    dispatch({ type: 'CREATE_PRODUCT' });
+    try {
+      // axios
+      //   .post('https://httpbin.org/anything', formData)
+      //   .then((res) => console.log(res))
+      //   .catch((err) => console.log(err));
+      const config = {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+          email: admin.email,
+          token: admin.token,
+        },
+      };
+      let res = await axios.post(
+        `http://localhost:5000/adminuser/create`,
+        formData,
+        config
+      );
+      if (res.status === 201) {
+        dispatch({ type: 'PRODUCT_CREATED_SUCCESS', product: res.data });
+      }
+    } catch (err) {
+      console.log(err.request.response || err.message.response);
+      dispatch({
+        type: 'PRODUCTS_CREATED_FAIL',
+        error: err.response || err.message,
+      });
+    }
+  };
+};

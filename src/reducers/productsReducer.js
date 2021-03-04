@@ -184,6 +184,10 @@ function productsReducer(state = initialState, action) {
         reviewSuccess: false,
       };
 
+    // Admin, create,edit, delete products //
+    case 'CREATE_PRODUCT':
+      return { ...state, loading: true };
+
     default:
       return state;
   }

@@ -61,12 +61,12 @@ class AdminProducts extends Component {
           ))}
         </div>
         <div className={styles.productlist}>
-          {products.map((product) => {
+          {products.map((product, index) => {
             return (
-              <div className={styles.productitem}>
+              <div key={index} className={styles.productitem}>
                 <span>Name: {product.name}</span>
                 <span>Price: £{product.price}</span>
-                <span>SubCategory: {product.subcat}</span>
+                <span>Category: {product.subcategory}</span>
                 <span>Brand: {product.brand}</span>
                 <div className={styles.buttoncontainer}>
                   <button className={styles.editbtn}>Edit</button>

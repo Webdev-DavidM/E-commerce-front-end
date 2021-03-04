@@ -63,6 +63,7 @@ class SignIn extends Component {
           <h1>Sign in</h1>
           <p>Email address</p>
           <input
+            class={styles.inputsignin}
             onChange={(e) => this.onInputChange(e)}
             name='email'
             type='text'
@@ -71,6 +72,7 @@ class SignIn extends Component {
           <br />
           <p>Password </p>
           <input
+            class={styles.inputsignin}
             onChange={(e) => this.onInputChange(e)}
             name='password'
             value={password}
@@ -89,6 +91,7 @@ class SignIn extends Component {
           <h1>New customer</h1>
           <p>Email address</p>
           <input
+            class={styles.inputsignin}
             type='text'
             onChange={(e) => this.onInputChange(e)}
             name='existingUserPassword'

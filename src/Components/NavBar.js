@@ -93,8 +93,6 @@ class NavBar extends Component {
               ) : (
                 <Link to='/sign-in'>Sign in</Link>
               )}
-              {/* {Below are two features I will add later} */}
-              <Link to='/stores'>Stores</Link>
             </div>
           </div>
         </div>

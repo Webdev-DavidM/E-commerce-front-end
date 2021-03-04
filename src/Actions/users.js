@@ -67,6 +67,7 @@ export const userSignUp = ({
       });
 
       if (response.status === 201) {
+        console.log(response.data);
         dispatch({ type: 'LOGIN_SUCCESS', user: response.data });
         storeTokeninLocalStorage(response.data);
       }
