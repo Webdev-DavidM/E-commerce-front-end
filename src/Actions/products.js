@@ -209,6 +209,41 @@ export const closeProductCreatedModal = () => {
   return { type: 'CLOSE_ADMIN_PRODUCT_MODAL' };
 };
 
+export const closeDeleteModal = (cat) => {
+  return { type: 'CLOSE_ADMIN_DELETE_MODAL', category: cat };
+};
+
+export const deleteProduct = ({ id, admin, cat }) => {
+  return async (dispatch) => {
+    dispatch({ type: 'DELETE_PRODUCT' });
+    try {
+      const config = {
+        headers: {
+          email: admin.email,
+          token: admin.token,
+        },
+      };
+      let res = await axios.delete(
+        `http://localhost:5000/adminuser/delete/${id}`,
+
+        config
+      );
+      if (res.status === 204) {
+        console.log(res.data);
+
+        dispatch({ type: 'PRODUCT_DELETED_SUCCESS', productId: res.data._id });
+        dispatch(getProducts(cat));
+      }
+    } catch (err) {
+      console.log(err.request.response || err.message.response);
+      dispatch({
+        type: 'PRODUCTS_DELETED_FAIL',
+        error: err.response || err.message,
+      });
+    }
+  };
+};
+
 export const createProduct = ({ admin, formData }) => {
   return async (dispatch) => {
     dispatch({ type: 'CREATE_PRODUCT' });

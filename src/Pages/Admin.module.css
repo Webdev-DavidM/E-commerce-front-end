@@ -1,7 +1,54 @@
 .adminproducts {
   width: calc(100%-4rem);
-  height: auto;
+  min-height: 100vh;
+
   padding: 2rem;
+  position: relative;
+}
+
+.productmodal {
+  position: absolute;
+  width: 90%;
+  height: 100vh;
+  z-index: 2000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.product {
+  width: 60%;
+  height: 35%;
+
+  display: flex;
+
+  font-size: 1rem;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: rgba(236, 240, 241, 1);
+  background-color: rgba(189, 195, 199, 1);
+}
+
+.productbtn {
+  width: 12rem;
+  height: 2.5rem;
+  margin: 1rem 0;
+  border: none;
+  border-radius: 3px;
+  color: rgba(236, 240, 241, 1);
+  background-color: rgba(52, 152, 219, 1);
+  transition: background-color 0.3s;
+}
+
+.productbtn:hover {
+  width: 12rem;
+  height: 2.5rem;
+  margin: 1rem 0;
+  cursor: pointer;
+  border: none;
+  color: rgba(236, 240, 241, 1);
+  background-color: rgba(41, 128, 185, 1);
 }
 
 .title {

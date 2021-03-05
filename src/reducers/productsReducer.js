@@ -22,6 +22,7 @@ const initialState = {
   filterHigherPrice: 0,
   filterReview: false,
   productCreatedModal: false,
+  productDeletedModal: false,
   latestCreatedProductId: '',
 
   categories: {
@@ -198,6 +199,17 @@ function productsReducer(state = initialState, action) {
       };
     case 'CLOSE_ADMIN_PRODUCT_MODAL':
       return { ...state, productCreatedModal: false };
+
+    case 'DELETE_PRODUCT':
+      return { ...state, loading: true };
+    case 'PRODUCT_DELETED_SUCCESS':
+      return { ...state, productDeletedModal: true, loading: false };
+    case 'CLOSE_ADMIN_DELETE_MODAL':
+      return {
+        ...state,
+        productDeletedModal: false,
+        chosenCategory: action.category,
+      };
 
     default:
       return state;

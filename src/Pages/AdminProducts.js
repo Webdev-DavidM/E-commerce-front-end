@@ -10,7 +10,11 @@ import styles from './Admin.module.css';
 /* Action creators */
 
 import { logUserOut } from '../Actions/users.js';
-import { getProducts } from '../Actions/products.js';
+import {
+  getProducts,
+  deleteProduct,
+  closeDeleteModal,
+} from '../Actions/products.js';
 
 class AdminProducts extends Component {
   componentDidMount = () => {
@@ -20,7 +24,10 @@ class AdminProducts extends Component {
 
   editProduct = (id) => {};
 
-  deleteProduct = (id) => {};
+  delete = (id) => {
+    let data = { id, admin: this.props.user, cat: this.props.chosenCat };
+    this.props.deleteProd(data);
+  };
 
   createProduct = () => {
     this.props.history.push('/admin/create');
@@ -31,17 +38,39 @@ class AdminProducts extends Component {
     displayCategory(cat);
   };
 
+  closeModal = () => {
+    this.props.closeModal();
+  };
+
   logOut = () => {
     this.props.logOut();
     this.props.history.push('/');
   };
 
   render() {
-    let { categories, products } = this.props;
+    let { categories, products, deletedModal } = this.props;
     let categoryNames = Object.keys(categories);
 
     return (
       <div className={styles.adminproducts}>
+        {deletedModal && (
+          <div className={styles.productmodal}>
+            <div className={styles.product}>
+              <h2 style={{ textAlign: 'center' }}>
+                {' '}
+                <i className='fas fa-check'></i>
+                &nbsp;Product deleted!
+              </h2>
+
+              <button
+                class={styles.productbtn}
+                onClick={() => this.closeModal()}
+                className={styles.continueshoppingbtn}>
+                Ok
+              </button>
+            </div>
+          </div>
+        )}
         <header className={styles.title}>
           <p>ADMIN SECTION</p>
 
@@ -70,7 +99,11 @@ class AdminProducts extends Component {
                 <span>Brand: {product.brand}</span>
                 <div className={styles.buttoncontainer}>
                   <button className={styles.editbtn}>Edit</button>
-                  <button className={styles.deletebtn}>Delete</button>
+                  <button
+                    onClick={() => this.delete(product._id)}
+                    className={styles.deletebtn}>
+                    Delete
+                  </button>
                 </div>
               </div>
             );
@@ -85,6 +118,9 @@ const mapStateToProps = (state) => {
   return {
     products: state.products.products,
     categories: state.products.categories,
+    user: state.user.user,
+    deletedModal: state.products.productDeletedModal,
+    chosenCat: state.products.chosenCategory,
   };
 };
 
@@ -92,6 +128,8 @@ const mapDispatchToProps = (dispatch) => {
   return {
     displayCategory: (cat) => dispatch(getProducts(cat)),
     logOut: () => dispatch(logUserOut()),
+    deleteProd: (id) => dispatch(deleteProduct(id)),
+    closeModal: () => dispatch(closeDeleteModal()),
   };
 };
 
