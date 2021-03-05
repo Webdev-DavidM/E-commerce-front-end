@@ -114,6 +114,8 @@ class Product extends Component {
   render() {
     let { product } = this.props;
 
+    console.log(product);
+
     let { showBasketModal } = this.state;
 
     let dropdown = null;

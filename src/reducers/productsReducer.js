@@ -21,6 +21,8 @@ const initialState = {
   filterLowerPrice: 0,
   filterHigherPrice: 0,
   filterReview: false,
+  productCreatedModal: false,
+  latestCreatedProductId: '',
 
   categories: {
     cycle: {
@@ -187,6 +189,15 @@ function productsReducer(state = initialState, action) {
     // Admin, create,edit, delete products //
     case 'CREATE_PRODUCT':
       return { ...state, loading: true };
+    case 'PRODUCT_CREATED_SUCCESS':
+      return {
+        ...state,
+        loading: false,
+        productCreatedModal: true,
+        latestCreatedProductId: action.productId,
+      };
+    case 'CLOSE_ADMIN_PRODUCT_MODAL':
+      return { ...state, productCreatedModal: false };
 
     default:
       return state;

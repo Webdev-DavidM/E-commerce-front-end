@@ -60,7 +60,7 @@ class ProductImageCarousel extends Component {
             : null
         }>
         <img
-          src={`https://my-ecommerce-site-fitness.herokuapp.com/${image}`}
+          src={`${process.env.REACT_APP_BACK_END_URL}/${image}`}
           alt={'hello'}></img>
       </span>
     ));
@@ -76,7 +76,7 @@ class ProductImageCarousel extends Component {
               <i className='fas fa-angle-left'></i>
             </button>
             <img
-              src={`https://my-ecommerce-site-fitness.herokuapp.com/${
+              src={`${process.env.REACT_APP_BACK_END_URL}/${
                 images[this.state.selectedImage]
               }`}
               alt={'hello'}></img>

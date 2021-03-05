@@ -11,25 +11,35 @@ import styles from './AdminEditProduct.module.css';
 
 /* Action creators */
 
-import { createProduct } from '../Actions/products.js';
+import {
+  createProduct,
+  closeProductCreatedModal,
+} from '../Actions/products.js';
 
 class AdminCreateProduct extends Component {
-  state = {
-    name: '',
-    price: 0,
-    imagesToDisplay: [],
-    imagesArrayForMulter: [],
-    brand: '',
-    small: '',
-    medium: '',
-    large: '',
-    category: '',
-    subcategory: [],
-    chosenSubCat: '',
-    description: '',
-    errors: [],
-    colour: '',
-  };
+  constructor(props) {
+    super(props);
+    this.state = {
+      name: '',
+      price: 0,
+      imagesToDisplay: [],
+      imagesArrayForMulter: [],
+      brand: '',
+      small: '',
+      medium: '',
+      large: '',
+      category: '',
+      subcategory: [],
+      chosenSubCat: '',
+      description: '',
+      errors: [],
+      colour: '',
+      showModal: false,
+    };
+
+    // Set the default state immediately
+    this.initialState = this.state;
+  }
 
   handleSubmit = (e) => {
     this.setState({ errors: [] });
@@ -132,27 +142,25 @@ class AdminCreateProduct extends Component {
       }));
     }
     if (readyToSubmit) {
-      let stock =
-        parseInt(this.state.small) +
-        parseInt(this.state.medium) +
-        parseInt(this.state.large);
+      // Here I am iterating over the images and adding them individually with the
+      // key 'images' which will be picked up by multer in the back end and
+      // added as an array
+      this.state.imagesArrayForMulter.forEach((image) => {
+        return formData.append('images', image);
+      });
+
       // Note you have to append each key/value pair individually
       formData.append('name', this.state.name);
       formData.append('price', this.state.price);
       formData.append('description', this.state.description);
-      formData.append('size', this.state.size);
       formData.append('reviews', []);
       formData.append('category', this.state.category);
       formData.append('subcategory', this.state.chosenSubCat);
-      formData.append('stock', stock);
       formData.append('colour', this.state.colour);
-      formData.append('size', {
-        small: this.state.small,
-        medium: this.state.medium,
-        large: this.state.large,
-      });
+      formData.append('small', this.state.small);
+      formData.append('large', this.state.large);
+      formData.append('medium', this.state.medium);
       formData.append('brand', this.state.brand);
-      formData.append('image', this.state.imagesArrayForMulter[0]);
 
       let data = {
         formData: formData,
@@ -162,7 +170,17 @@ class AdminCreateProduct extends Component {
     }
   };
 
+  reset = () => {
+    this.props.closeModal();
+  };
+  viewProduct = () => {
+    this.props.history.push(`/product/${this.props.createdProductId}`);
+    this.props.closeModal();
+  };
+
   removeImage = (index) => {
+    // Below the images are removed from the actual image files being sent to express and multer, the other is
+    // the image files being displayed as previews on the page ( using the filereader API)
     let imagesToDisplay = [...this.state.imagesToDisplay];
     let imagesToSendToMulter = [...this.state.imagesArrayForMulter];
     imagesToDisplay.splice(index, 1);
@@ -192,6 +210,9 @@ class AdminCreateProduct extends Component {
   };
 
   handleChange = (e) => {
+    // This first if statement checks if I am dealing with an image upload, if so then it firstly adds the actual image file to
+    // to array in state which I can then send to the back end, this is added to the formData in the submit function, the second part uses the file reader
+    // to produce images which can be actually viewed as a preview on the page, both are stored in different arrays in state as they contain different files
     if (e.target.files) {
       this.setState({
         imagesArrayForMulter: [
@@ -213,6 +234,7 @@ class AdminCreateProduct extends Component {
 
   render() {
     let { categories } = this.props;
+    let { productCreated } = this.props;
     let options = Object.keys(categories).map((category) => (
       <option name='category' value={category}>
         {category}
@@ -229,6 +251,29 @@ class AdminCreateProduct extends Component {
     return (
       <>
         <div className={styles.editproductcontainer}>
+          {productCreated && (
+            <div className={styles.productmodal}>
+              <div className={styles.product}>
+                <h2 style={{ textAlign: 'center' }}>
+                  {' '}
+                  <i className='fas fa-check'></i>
+                  &nbsp;Product created! Would you like to{' '}
+                </h2>
+                <button
+                  class={styles.productbtn}
+                  onClick={() => this.viewProduct()}
+                  className={styles.continueshoppingbtn}>
+                  View the product in our store
+                </button>
+                <button
+                  class={styles.productbtn}
+                  onClick={() => this.reset()}
+                  className={styles.continueshoppingbtn}>
+                  Create another product
+                </button>
+              </div>
+            </div>
+          )}
           <h4>
             <button class={styles.gobackbtn}>
               <Link style={{ color: '#ecf0f1' }} to='/admin'>
@@ -396,12 +441,15 @@ const mapStateToProps = (state) => {
   return {
     categories: state.products.categories,
     user: state.user.user,
+    productCreated: state.products.productCreatedModal,
+    createdProductId: state.products.latestCreatedProductId,
   };
 };
 
 const mapDispatchToProps = (dispatch) => {
   return {
     createNewProduct: (data) => dispatch(createProduct(data)),
+    closeModal: () => dispatch(closeProductCreatedModal()),
   };
 };
 

@@ -205,10 +205,17 @@ export const updatePriceFilter = ({ price, higher }) => {
 
 /* Admin action creators to create, delete or edit a product below */
 
+export const closeProductCreatedModal = () => {
+  return { type: 'CLOSE_ADMIN_PRODUCT_MODAL' };
+};
+
 export const createProduct = ({ admin, formData }) => {
   return async (dispatch) => {
     dispatch({ type: 'CREATE_PRODUCT' });
+
     try {
+      // httpbin allows me to see the formData that I will be sending to the server, this solves the problem
+      // of not being able to see inside the formData in the browser usually
       // axios
       //   .post('https://httpbin.org/anything', formData)
       //   .then((res) => console.log(res))
@@ -226,7 +233,8 @@ export const createProduct = ({ admin, formData }) => {
         config
       );
       if (res.status === 201) {
-        dispatch({ type: 'PRODUCT_CREATED_SUCCESS', product: res.data });
+        console.log(res.data);
+        dispatch({ type: 'PRODUCT_CREATED_SUCCESS', productId: res.data._id });
       }
     } catch (err) {
       console.log(err.request.response || err.message.response);
