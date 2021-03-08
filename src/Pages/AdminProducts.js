@@ -24,8 +24,8 @@ class AdminProducts extends Component {
 
   editProduct = (id) => {};
 
-  delete = (id) => {
-    let data = { id, admin: this.props.user, cat: this.props.chosenCat };
+  delete = (id, cat) => {
+    let data = { id, admin: this.props.user, cat: cat };
     this.props.deleteProd(data);
   };
 
@@ -98,9 +98,15 @@ class AdminProducts extends Component {
                 <span>Category: {product.subcategory}</span>
                 <span>Brand: {product.brand}</span>
                 <div className={styles.buttoncontainer}>
-                  <button className={styles.editbtn}>Edit</button>
                   <button
-                    onClick={() => this.delete(product._id)}
+                    onClick={() =>
+                      this.props.history.push(`/admin/product/${product._id}`)
+                    }
+                    className={styles.editbtn}>
+                    Edit
+                  </button>
+                  <button
+                    onClick={() => this.delete(product._id, product.category)}
                     className={styles.deletebtn}>
                     Delete
                   </button>

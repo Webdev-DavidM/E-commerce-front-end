@@ -199,6 +199,13 @@ function productsReducer(state = initialState, action) {
       };
     case 'CLOSE_ADMIN_PRODUCT_MODAL':
       return { ...state, productCreatedModal: false };
+    case 'UPDATE_PRODUCT_IN_REDUX_STATE':
+      let { key, value } = action;
+      return {
+        ...state,
+        ...state.selectedProduct,
+        [key]: value,
+      };
 
     case 'DELETE_PRODUCT':
       return { ...state, loading: true };

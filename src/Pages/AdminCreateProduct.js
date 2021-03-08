@@ -21,7 +21,7 @@ class AdminCreateProduct extends Component {
     super(props);
     this.state = {
       name: '',
-      price: 0,
+      price: '',
       imagesToDisplay: [],
       imagesArrayForMulter: [],
       brand: '',
@@ -171,6 +171,9 @@ class AdminCreateProduct extends Component {
   };
 
   reset = () => {
+    this.setState(this.initialState);
+    this.props.history.push('/admin/create');
+
     this.props.closeModal();
   };
   viewProduct = () => {
@@ -288,7 +291,7 @@ class AdminCreateProduct extends Component {
                 Name:
                 <input
                   name='name'
-                  value={this.state.value}
+                  value={this.state.name}
                   onChange={(e) => this.handleChange(e)}
                 />
               </label>
@@ -297,7 +300,7 @@ class AdminCreateProduct extends Component {
                 <input
                   type='text'
                   name='price'
-                  value={this.state.value}
+                  value={this.state.price}
                   onChange={(e) => this.handleChange(e)}
                 />
               </label>
@@ -336,7 +339,7 @@ class AdminCreateProduct extends Component {
                 <input
                   type='text'
                   name='brand'
-                  value={this.state.value}
+                  value={this.state.brand}
                   onChange={(e) => this.handleChange(e)}
                 />
               </label>
@@ -345,7 +348,7 @@ class AdminCreateProduct extends Component {
                 <input
                   type='text'
                   name='colour'
-                  value={this.state.value}
+                  value={this.state.colour}
                   onChange={(e) => this.handleChange(e)}
                 />
               </label>
@@ -367,7 +370,7 @@ class AdminCreateProduct extends Component {
                       class={styles.sizeinput}
                       type='text'
                       name='small'
-                      value={this.state.value}
+                      value={this.state.small}
                       onChange={(e) => this.handleChange(e)}
                     />
                     <span> Medium</span>
@@ -375,7 +378,7 @@ class AdminCreateProduct extends Component {
                       class={styles.sizeinput}
                       type='text'
                       name='medium'
-                      value={this.state.value}
+                      value={this.state.medium}
                       onChange={(e) => this.handleChange(e)}
                     />
                     <span> Large </span>
@@ -383,7 +386,7 @@ class AdminCreateProduct extends Component {
                       class={styles.sizeinput}
                       type='text'
                       name='large'
-                      value={this.state.value}
+                      value={this.state.large}
                       onChange={(e) => this.handleChange(e)}
                     />
                   </div>
@@ -420,7 +423,7 @@ class AdminCreateProduct extends Component {
                 <input
                   type='text'
                   name='description'
-                  value={this.state.value}
+                  value={this.state.description}
                   onChange={(e) => this.handleChange(e)}
                 />
               </label>

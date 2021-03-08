@@ -160,17 +160,12 @@ class App extends Component {
                   path='/admin/create'
                   component={AdminCreateProduct}></AdminRoute>
 
-                <Route
+                <AdminRoute
                   exact
                   path='/admin/product/:id'
-                  component={AdminEditProduct}
-                />
+                  component={AdminEditProduct}></AdminRoute>
                 <Route exact path='/admin-orders' component={AdminOrders} />
-                <Route
-                  exact
-                  path='/admin/product/id'
-                  component={AdminEditProduct}
-                />
+
                 <Route
                   exact
                   path='/order/:id'

@@ -205,6 +205,10 @@ export const updatePriceFilter = ({ price, higher }) => {
 
 /* Admin action creators to create, delete or edit a product below */
 
+export const editProduct = ({ key, value }) => {
+  return { type: 'UPDATE_PRODUCT_IN_REDUX_STATE', key, value };
+};
+
 export const closeProductCreatedModal = () => {
   return { type: 'CLOSE_ADMIN_PRODUCT_MODAL' };
 };
@@ -233,6 +237,77 @@ export const deleteProduct = ({ id, admin, cat }) => {
 
         dispatch({ type: 'PRODUCT_DELETED_SUCCESS', productId: res.data._id });
         dispatch(getProducts(cat));
+      }
+    } catch (err) {
+      console.log(err.request.response || err.message.response);
+      dispatch({
+        type: 'PRODUCTS_DELETED_FAIL',
+        error: err.response || err.message,
+      });
+    }
+  };
+};
+
+export const deleteImageFromServer = ({ index, id, admin }) => {
+  console.log(admin.token);
+  return async (dispatch) => {
+    dispatch({ type: 'DELETE_PRODUCT' });
+    try {
+      const config = {
+        headers: {
+          email: admin.email,
+          token: admin.token,
+          index: index,
+        },
+      };
+      let res = await axios.delete(
+        `http://localhost:5000/adminuser/deleteimage/${id}`,
+
+        config
+      );
+      if (res.status === 201) {
+        console.log(res);
+
+        dispatch({ type: 'PRODUCT_DELETED_SUCCESS', productId: res.data._id });
+        dispatch(getProduct(id));
+      }
+    } catch (err) {
+      console.log(err.request.response || err.message.response);
+      dispatch({
+        type: 'PRODUCTS_DELETED_FAIL',
+        error: err.response || err.message,
+      });
+    }
+  };
+};
+
+export const uploadImageToServer = ({ formData, admin, id }) => {
+  axios
+    .post('https://httpbin.org/anything', formData)
+    .then((res) => console.log(res))
+    .catch((err) => console.log(err));
+
+  console.log(id);
+  return async (dispatch) => {
+    // dispatch({ type: 'DELETE_PRODUCT' });
+    try {
+      const config = {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+          email: admin.email,
+          token: admin.token,
+        },
+      };
+      let res = await axios.post(
+        `http://localhost:5000/adminuser/addimage/${id}`,
+        formData,
+        config
+      );
+      if (res.status === 201) {
+        console.log(res);
+
+        dispatch({ type: 'PRODUCT_DELETED_SUCCESS', productId: res.data._id });
+        dispatch(getProduct(id));
       }
     } catch (err) {
       console.log(err.request.response || err.message.response);
@@ -275,6 +350,36 @@ export const createProduct = ({ admin, formData }) => {
       console.log(err.request.response || err.message.response);
       dispatch({
         type: 'PRODUCTS_CREATED_FAIL',
+        error: err.response || err.message,
+      });
+    }
+  };
+};
+
+export const updateProductOnServer = ({ admin, data, productId }) => {
+  return async (dispatch) => {
+    // dispatch({ type: 'EDIT_PRODUCT' });
+
+    try {
+      const config = {
+        headers: {
+          email: admin.email,
+          token: admin.token,
+        },
+      };
+      let res = await axios.put(
+        `http://localhost:5000/adminuser/update/${productId}`,
+        data,
+        config
+      );
+      if (res.status === 201) {
+        console.log(res.data);
+        dispatch({ type: 'PRODUCT_EDITED_SUCCESS', productId: res.data._id });
+      }
+    } catch (err) {
+      console.log(err.request.response || err.message.response);
+      dispatch({
+        type: 'PRODUCTS_EDITED_FAIL',
         error: err.response || err.message,
       });
     }
