@@ -22,8 +22,8 @@ import './App.css';
 
 /* Action creators */
 
-import { isTokenValid } from './Actions/users.js';
-import { addToBasket } from './Actions/products.js';
+import { isTokenValid, logUserOut } from './Actions/users.js';
+import { addToBasket, emptyBasket } from './Actions/products.js';
 
 // Here I am using lazy loading which is code splitting which will only loads components when needed and
 // hopefully should speed up my application
@@ -47,7 +47,30 @@ class App extends Component {
   state = {
     showArrowToTop: false,
   };
+
+  // Below I will check if a user is signed in and if so then i will check if the token is valid, if not they will be logged out
+
+  componentDidUpdate = (newProps) => {
+    if (newProps.userSignedIn) {
+      let authenticatedUser = isTokenValid();
+      if (!authenticatedUser) {
+        this.props.logOut();
+        let localStorageItems = Object.keys(localStorage);
+        localStorageItems.forEach((item) => {
+          //Below I clear any items in local storage for the basket
+          let re = /^item/;
+          if (re.test(item) === true) {
+            localStorage.removeItem(item);
+          }
+        });
+        // below i am clearing the basket in redux
+        this.props.clearBasket();
+      }
+    }
+  };
+
   componentDidMount = () => {
+    console.log('app rendered');
     // This code below is used to check where the user is on the screen, is there have scrolled down
     // and cant see the nav bar anymore, an arrow will appear in the bottom right hand corner
     // which cant be clicked and take them back to the top
@@ -62,11 +85,6 @@ class App extends Component {
       //The function below checks if there is jwt token in local storage and if so it will check if it is still
       // valid
     });
-    let authenticatedUser = isTokenValid();
-
-    if (authenticatedUser) {
-      this.props.addAuthenticateduserToRedux(authenticatedUser);
-    }
 
     // in here I need to make a back-end call which gets all the categories and sub categories and puts them into
     //redux so this can be used by the category menus
@@ -106,7 +124,6 @@ class App extends Component {
   };
 
   render() {
-    let { adminUser } = this.props;
     return (
       <div>
         <div className='App'>
@@ -223,9 +240,11 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
+    logOut: () => dispatch(logUserOut()),
     addAuthenticateduserToRedux: (user) =>
       dispatch({ type: 'LOGIN_SUCCESS', user: user }),
     addBasket: (item) => dispatch(addToBasket(item)),
+    clearBasket: () => dispatch(emptyBasket()),
   };
 };
 

@@ -30,7 +30,6 @@ import {
 
 class NavBar extends Component {
   render() {
-    console.log(this.props.admin);
     // Destructuring for mapStateToProps
     let { showDrop, showSide, showSubCat, signedIn } = this.props;
 

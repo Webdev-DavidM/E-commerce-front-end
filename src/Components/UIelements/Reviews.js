@@ -44,7 +44,7 @@ class Reviews extends Component {
             let colour =
               star <= this.state.averageReviewRating ? '#f1c40f' : null;
             return (
-              <span key={index} style={{ color: `${colour}` }}>
+              <span key={`star${star}`} style={{ color: `${colour}` }}>
                 <FontAwesomeIcon icon={faStar} />
               </span>
             );
@@ -63,13 +63,13 @@ class Reviews extends Component {
               let stars = this.state.stars.map((star, index) => {
                 let colour = star <= review.rating ? '#f1c40f' : null;
                 return (
-                  <span key={index} style={{ color: `${colour}` }}>
+                  <span key={`review${index}`} style={{ color: `${colour}` }}>
                     <FontAwesomeIcon icon={faStar} />
                   </span>
                 );
               });
               return (
-                <div>
+                <div key={`reviewer${index}`}>
                   <hr className={styles.reviewdivider} />
                   {stars} by {review.firstName}
                   <br />

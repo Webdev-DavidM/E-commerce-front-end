@@ -257,7 +257,11 @@ class AdminCreateProduct extends Component {
           {productCreated && (
             <div className={styles.productmodal}>
               <div className={styles.product}>
-                <h2 style={{ textAlign: 'center' }}>
+                <h2
+                  style={{
+                    textAlign: 'center',
+                    color: 'rgba(44, 62, 80,1.0)',
+                  }}>
                   {' '}
                   <i className='fas fa-check'></i>
                   &nbsp;Product created! Would you like to{' '}

@@ -23,7 +23,9 @@ const initialState = {
   filterReview: false,
   productCreatedModal: false,
   productDeletedModal: false,
+  productEditedModal: false,
   latestCreatedProductId: '',
+  latestEditedProductId: '',
 
   categories: {
     cycle: {
@@ -154,7 +156,6 @@ function productsReducer(state = initialState, action) {
       let indexOfItem = newBasketCopy.findIndex(
         (item) => item.id === action.id && item.size === action.size
       );
-      console.log(indexOfItem);
       newBasketCopy.splice(indexOfItem, 1);
       return { ...state, basket: newBasketCopy };
     case 'ADD_TO_BASKET':
@@ -190,12 +191,21 @@ function productsReducer(state = initialState, action) {
     // Admin, create,edit, delete products //
     case 'CREATE_PRODUCT':
       return { ...state, loading: true };
+    case 'EDIT_PRODUCT':
+      return { ...state, loading: true };
     case 'PRODUCT_CREATED_SUCCESS':
       return {
         ...state,
         loading: false,
         productCreatedModal: true,
         latestCreatedProductId: action.productId,
+      };
+    case 'PRODUCT_EDIT_SUCCESS':
+      return {
+        ...state,
+        loading: false,
+        productEditedModal: true,
+        latestEditedProductId: action.productId,
       };
     case 'CLOSE_ADMIN_PRODUCT_MODAL':
       return { ...state, productCreatedModal: false };
@@ -216,6 +226,11 @@ function productsReducer(state = initialState, action) {
         ...state,
         productDeletedModal: false,
         chosenCategory: action.category,
+      };
+    case 'CLOSE_ADMIN_EDIT_MODAL':
+      return {
+        ...state,
+        productEditedModal: false,
       };
 
     default:

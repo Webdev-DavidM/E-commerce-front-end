@@ -31,7 +31,6 @@ class ShoppingBasket extends Component {
         return item !== 'userInfo' && localStorage.removeItem(`${item}`);
       });
       basket.map((item, index) => {
-        console.log(item.localStorageKey);
         return localStorage.setItem(
           `item${item.localStorageKey}`,
           JSON.stringify(item)

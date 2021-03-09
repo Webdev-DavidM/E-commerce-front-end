@@ -12,11 +12,13 @@
 /* CSS modules */
 
 .generic-loading-container {
-  position: absolute;
+  position: fixed;
   z-index: 1000;
   background-color: rgba(52, 73, 94, 0.5);
   width: 100%;
   height: 100%;
+  left: 0;
+  top: 0;
   display: flex;
   align-items: center;
   justify-content: center;

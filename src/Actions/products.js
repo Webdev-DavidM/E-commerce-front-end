@@ -96,6 +96,10 @@ export const submitReview = ({ productId, ...data }) => {
   };
 };
 
+export const clearSelectedProduct = () => {
+  return { type: 'CLEAR_SELECTED_PRODUCTS' };
+};
+
 export const clearProducts = () => {
   return { type: 'CLEAR_PRODUCTS' };
 };
@@ -130,10 +134,6 @@ export const subCatToShow = (subcat) => {
 
 export const chosenProduct = (id) => {
   return { type: 'CHOSEN_PRODUCT', id };
-};
-
-export const clearSelectedProduct = () => {
-  return { type: 'CLEAR_SELECTED_PRODUCTS' };
 };
 
 export const addToBasket = (itemInfo) => {
@@ -214,7 +214,11 @@ export const closeProductCreatedModal = () => {
 };
 
 export const closeDeleteModal = (cat) => {
-  return { type: 'CLOSE_ADMIN_DELETE_MODAL', category: cat };
+  return { type: 'CLOSE_ADMIN_DELETE_MODAL' };
+};
+
+export const closeProductEditedModal = () => {
+  return { type: 'CLOSE_ADMIN_EDIT_MODAL' };
 };
 
 export const deleteProduct = ({ id, admin, cat }) => {
@@ -343,7 +347,6 @@ export const createProduct = ({ admin, formData }) => {
         config
       );
       if (res.status === 201) {
-        console.log(res.data);
         dispatch({ type: 'PRODUCT_CREATED_SUCCESS', productId: res.data._id });
       }
     } catch (err) {
@@ -358,7 +361,7 @@ export const createProduct = ({ admin, formData }) => {
 
 export const updateProductOnServer = ({ admin, data, productId }) => {
   return async (dispatch) => {
-    // dispatch({ type: 'EDIT_PRODUCT' });
+    dispatch({ type: 'EDIT_PRODUCT' });
 
     try {
       const config = {
@@ -367,14 +370,13 @@ export const updateProductOnServer = ({ admin, data, productId }) => {
           token: admin.token,
         },
       };
-      let res = await axios.put(
+      let res = await axios.post(
         `http://localhost:5000/adminuser/update/${productId}`,
         data,
         config
       );
-      if (res.status === 201) {
-        console.log(res.data);
-        dispatch({ type: 'PRODUCT_EDITED_SUCCESS', productId: res.data._id });
+      if (res.status === 204) {
+        dispatch({ type: 'PRODUCT_EDIT_SUCCESS', productId });
       }
     } catch (err) {
       console.log(err.request.response || err.message.response);

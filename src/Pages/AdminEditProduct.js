@@ -12,11 +12,12 @@ import styles from './AdminEditProduct.module.css';
 
 import {
   createProduct,
-  closeProductCreatedModal,
+  closeProductEditedModal,
   getProduct,
   updateProductOnServer,
   deleteImageFromServer,
   uploadImageToServer,
+  clearSelectedProduct,
 } from '../Actions/products.js';
 
 class AdminEditProduct extends Component {
@@ -31,7 +32,7 @@ class AdminEditProduct extends Component {
       small: 0,
       medium: 0,
       large: 0,
-      size: null,
+      size: '',
       category: '',
       subcategory: [],
       chosenSubCat: '',
@@ -49,7 +50,6 @@ class AdminEditProduct extends Component {
     let { getProductFromServer } = this.props;
     let id = this.props.location.pathname.split('/')[3];
     getProductFromServer(id);
-    console.log(this.props);
   };
 
   // I use component did update to get the props from the redux store to prepopulate
@@ -57,36 +57,49 @@ class AdminEditProduct extends Component {
   // images which are deleted and added to the server separately )
 
   componentDidUpdate = (newProps, nextState) => {
+    // console.log(
+    //   'original redux props',
+    //   this.props.product,
+    //   'new redux Props when I choose another',
+    //   newProps.product
+    // );
     let {
       name,
       price,
       brand,
       colour,
       category,
-      size,
+
       subcategory,
       description,
     } = this.props.product;
 
-    let sizes = newProps.product.length !== 0 && newProps.product.size[0];
     if (this.props.images === newProps.images) {
       if (this.props.product !== newProps.product) {
-        this.setState({
-          name: name,
-          price: price,
-          brand: brand,
-          colour: colour,
-          chosenSubCat: subcategory,
-          size: size,
-          small: sizes.small,
-          medium: sizes.medium,
-          large: sizes.large,
-          category: category,
-          subcategory: [subcategory],
-          description: description,
-        });
+        // for some reason the sizes are coing in either an object or an object in array so I
+        // do the below to fit it
+
+        if (this.props.product.size !== undefined) {
+          this.setState({
+            name: name,
+            price: price,
+            brand: brand,
+            colour: colour,
+            chosenSubCat: subcategory,
+            small: this.props.product.size[0].small,
+            medium: this.props.product.size[0].medium,
+            large: this.props.product.size[0].large,
+            category: category,
+            subcategory: [subcategory],
+            description: description,
+          });
+        }
       }
     }
+  };
+
+  componentWillUnmount = () => {
+    this.props.clearProduct();
   };
 
   handleSubmit = (e) => {
@@ -187,13 +200,13 @@ class AdminEditProduct extends Component {
         price: this.state.price,
         brand: this.state.brand,
         colour: this.state.colour,
-        stock: {
+        size: {
           small: this.state.small,
           medium: this.state.medium,
           large: this.state.large,
         },
-        category: this.state.subcategory,
-        chosenSubCat: this.state.chosenSubCat,
+        category: this.state.category,
+        subcategory: this.state.chosenSubCat,
         description: this.state.description,
       };
 
@@ -207,11 +220,8 @@ class AdminEditProduct extends Component {
     }
   };
 
-  reset = () => {
-    this.props.closeModal();
-  };
   viewProduct = () => {
-    this.props.history.push(`/product/${this.props.createdProductId}`);
+    this.props.history.push(`/product/${this.props.product._id}`);
     this.props.closeModal();
   };
 
@@ -224,13 +234,6 @@ class AdminEditProduct extends Component {
       id: this.props.product._id,
       admin: { email: email, token: token },
     });
-    // let imagesToSendToMulter = [...this.state.imagesArrayForMulter];
-    // imagesToDisplay.splice(index, 1);
-    // imagesToSendToMulter.splice(index, 1);
-    // this.setState({
-    //   imagesToDisplay: imagesToDisplay,
-    //   imagesArrayForMulter: imagesToSendToMulter,
-    // });
   };
 
   updateCat = (e) => {
@@ -252,7 +255,6 @@ class AdminEditProduct extends Component {
   };
 
   handleChange = (e) => {
-    console.log(e.target.value, e.target.name);
     // This first if statement checks if I am dealing with an image upload, if so then it firstly adds the actual image file to
     // to array in state which I can then send to the back end, this is added to the formData in the submit function, the second part uses the file reader
     // to produce images which can be actually viewed as a preview on the page, both are stored in different arrays in state as they contain different files
@@ -273,59 +275,58 @@ class AdminEditProduct extends Component {
     }
   };
 
+  editMore = () => {
+    this.props.closeModal();
+    this.props.history.push('/admin');
+  };
+
   render() {
     let { categories } = this.props;
-    let { productCreated, product } = this.props;
-    let small = this.state.size ? this.state.size[0].small : null;
-    let options = Object.keys(categories).map((category) => (
-      <option name='category' value={category}>
+    let { product } = this.props;
+    let { showModal } = this.props;
+    let options = Object.keys(categories).map((category, index) => (
+      <option key={`category${index}`} name='category' value={category}>
         {category}
       </option>
     ));
     options.unshift(
-      <option selected value='blank'>
+      <option key={'blank-option'} defaultValue value='blank'>
         -- select an option --{' '}
       </option>
     );
 
-    console.log(product.length !== 0 && product.images);
-
     return (
       <>
         <div className={styles.editproductcontainer}>
-          {productCreated && (
+          {showModal && (
             <div className={styles.productmodal}>
               <div className={styles.product}>
                 <h2 style={{ textAlign: 'center' }}>
                   {' '}
                   <i className='fas fa-check'></i>
-                  &nbsp;Product created! Would you like to{' '}
+                  &nbsp;Product edited successfully! Would you like to{' '}
                 </h2>
                 <button
-                  class={styles.productbtn}
                   onClick={() => this.viewProduct()}
                   className={styles.continueshoppingbtn}>
                   View the product in our store
                 </button>
                 <button
-                  class={styles.productbtn}
-                  onClick={() => this.reset()}
+                  onClick={() => this.editMore()}
                   className={styles.continueshoppingbtn}>
-                  Create another product
+                  Edit another product
                 </button>
               </div>
             </div>
           )}
           <h4>
-            <button class={styles.gobackbtn}>
+            <button className={styles.gobackbtn}>
               <Link style={{ color: '#ecf0f1' }} to='/admin'>
                 Go back
               </Link>{' '}
             </button>
           </h4>
-          <h2>
-            EDIT PRODUCT-please just fill in the fields you would like to change
-          </h2>
+          <h2>EDIT PRODUCT</h2>
           <div className={styles.editformcontainer}>
             <form onSubmit={this.handleSubmit} encType='multipart/form-data'>
               <label>
@@ -347,7 +348,7 @@ class AdminEditProduct extends Component {
                 />
               </label>
               Please upload the images below
-              <label for='uploadbtn' class={styles.uploadbtn}>
+              <label htmlFor='uploadbtn' class={styles.uploadbtn}>
                 {' '}
                 Upload Images
               </label>
@@ -359,13 +360,14 @@ class AdminEditProduct extends Component {
                 accept='.jpg, .png,.jpeg'
                 multiple=''
               />
-              <div class={styles.imagecontainer}>
+              <div className={styles.imagecontainer}>
                 {product.length !== 0 &&
                   product.images.map((image, index) => (
                     <div
+                      key={`image${index}`}
                       onClick={() => this.removeImage(index)}
                       className={styles.imagebtn}>
-                      <div class={styles.imagehover}>X</div>
+                      <div className={styles.imagehover}>X</div>
                       <img
                         style={{
                           height: '4rem',
@@ -407,11 +409,11 @@ class AdminEditProduct extends Component {
                   : null}
                 <br />
                 Please enter amounts in each size below
-                <div class={styles.sizecontainer}>
-                  <div class={styles.smallcontainer}>
+                <div className={styles.sizecontainer}>
+                  <div className={styles.smallcontainer}>
                     <span> Small </span>
                     <input
-                      class={styles.sizeinput}
+                      className={styles.sizeinput}
                       type='text'
                       name='small'
                       value={this.state.small}
@@ -419,7 +421,7 @@ class AdminEditProduct extends Component {
                     />
                     <span> Medium</span>
                     <input
-                      class={styles.sizeinput}
+                      className={styles.sizeinput}
                       type='text'
                       name='medium'
                       value={this.state.medium}
@@ -427,7 +429,7 @@ class AdminEditProduct extends Component {
                     />
                     <span> Large </span>
                     <input
-                      class={styles.sizeinput}
+                      className={styles.sizeinput}
                       type='text'
                       name='large'
                       value={this.state.large}
@@ -440,7 +442,7 @@ class AdminEditProduct extends Component {
                 Category
                 <br />
                 <select
-                  class={styles.dropdown}
+                  className={styles.dropdown}
                   value={this.state.category}
                   onChange={(e) => this.updateCat(e)}>
                   {options}
@@ -450,14 +452,17 @@ class AdminEditProduct extends Component {
                 Subcategory
                 <br />
                 <select
-                  class={styles.dropdown}
+                  className={styles.dropdown}
                   disabled={this.state.subcategory.length === 1}
                   value={this.state.chosenSubCat}
                   onChange={(e) => this.updateSubCat(e)}>
                   <option value='blank'>-- select an option -- </option>
                   {this.state.subcategory.length &&
-                    this.state.subcategory.map((subcategory) => (
-                      <option name='subcategory' value={subcategory}>
+                    this.state.subcategory.map((subcategory, index) => (
+                      <option
+                        key={`subcategory${index}`}
+                        name='subcategory'
+                        value={subcategory}>
                         {subcategory}
                       </option>
                     ))}
@@ -469,18 +474,24 @@ class AdminEditProduct extends Component {
                   placeholder={
                     this.props.product && this.props.product.description
                   }
-                  class={styles.description}
+                  className={styles.description}
                   type='textarea'
                   name='description'
                   value={this.state.description}
                   onChange={(e) => this.handleChange(e)}
                 />
               </label>
-              <input class={styles.submitbtn} type='submit' value='Submit' />
+              <input
+                className={styles.submitbtn}
+                type='submit'
+                value='Submit'
+              />
             </form>
             {this.state.errors &&
-              this.state.errors.map((error) => (
-                <p className={styles.error}>{error}</p>
+              this.state.errors.map((error, index) => (
+                <p key={`error${index}`} className={styles.error}>
+                  {error}
+                </p>
               ))}
           </div>
         </div>
@@ -495,20 +506,22 @@ const mapStateToProps = (state) => {
     user: state.user.user,
     product: state.products.selectedProduct,
     productCreated: state.products.productCreatedModal,
-    createdProductId: state.products.latestCreatedProductId,
+    showModal: state.products.productEditedModal,
+    editedProductId: state.products.latestEditedProductId,
   };
 };
 
 const mapDispatchToProps = (dispatch) => {
   return {
     createNewProduct: (data) => dispatch(createProduct(data)),
-    closeModal: () => dispatch(closeProductCreatedModal()),
+    closeModal: () => dispatch(closeProductEditedModal()),
     getProductFromServer: (id) => dispatch(getProduct(id)),
     updateProduct: (data) => dispatch(updateProductOnServer(data)),
     deleteImage: (data) => dispatch(deleteImageFromServer(data)),
     uploadImage: (data) => {
       dispatch(uploadImageToServer(data));
     },
+    clearProduct: () => dispatch(clearSelectedProduct()),
   };
 };
 

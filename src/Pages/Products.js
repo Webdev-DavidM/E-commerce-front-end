@@ -34,6 +34,10 @@ class Products extends Component {
     getUserProducts(category);
   };
 
+  componentWillUnmount = () => {
+    this.props.clearSelected();
+  };
+
   componentDidUpdate = () => {
     //If the user refreshes the page this will get the brands and give them to the brand filter
     let { filterBrands } = this.props;

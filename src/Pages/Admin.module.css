@@ -8,9 +8,12 @@
 
 .productmodal {
   position: fixed;
-  width: 90%;
+  width: 100vw;
   height: 100vh;
   z-index: 2000;
+  left: 0;
+  top: 0;
+  background-color: rgba(236, 240, 241, 0.8);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -26,8 +29,8 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  color: rgba(236, 240, 241, 1);
-  background-color: rgba(189, 195, 199, 1);
+  color: rgba(44, 62, 80, 1);
+  background-color: white;
 }
 
 .productbtn {
@@ -200,6 +203,21 @@ input[type='file'] {
 
 .deletebtn:hover {
   background-color: #c0392b;
+  cursor: pointer;
+}
+
+.continueshoppingbtn {
+  width: 3rem;
+  height: 2rem;
+  background-color: #3498db;
+  color: #ecf0f1;
+  border: none;
+  border-radius: 3px;
+  transition: color 0.3s;
+}
+
+.continueshoppingbtn:hover {
+  background-color: #2980b9;
   cursor: pointer;
 }
 

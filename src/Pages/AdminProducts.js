@@ -63,7 +63,7 @@ class AdminProducts extends Component {
               </h2>
 
               <button
-                class={styles.productbtn}
+                className={styles.productbtn}
                 onClick={() => this.closeModal()}
                 className={styles.continueshoppingbtn}>
                 Ok
@@ -86,7 +86,9 @@ class AdminProducts extends Component {
         <div className={styles.categorybtns}>
           <p>CATEGORIES</p>
           {categoryNames.map((cat) => (
-            <button onClick={() => this.chosenCategory(cat)}>{cat}</button>
+            <button key={cat} onClick={() => this.chosenCategory(cat)}>
+              {cat}
+            </button>
           ))}
         </div>
         <div className={styles.productlist}>

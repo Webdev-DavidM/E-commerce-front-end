@@ -17,7 +17,7 @@
   color: white;
   text-decoration: none;
   order: 3;
-  margin: 0 0 0 3rem;
+  margin: 0 0 0 1rem;
   transition: color 0.4s;
 }
 
@@ -439,6 +439,12 @@
 
   .categorylinks a:hover {
     border-color: #2c3e50;
+  }
+}
+
+@media only screen and (min-width: 400px) {
+  .admin {
+    margin: 0 0 0 4rem;
   }
 }
 

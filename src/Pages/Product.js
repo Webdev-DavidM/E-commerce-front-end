@@ -67,7 +67,6 @@ class Product extends Component {
   addToBasket = () => {
     /* Destructuring action creators */
     let { addProductToBasket } = this.props;
-    console.log(this.props.basket.length);
 
     /* Destructuring state from redux */
     let { images, price, _id, name } = this.props.product;
@@ -114,8 +113,6 @@ class Product extends Component {
   render() {
     let { product } = this.props;
 
-    console.log(product);
-
     let { showBasketModal } = this.state;
 
     let dropdown = null;
@@ -126,7 +123,7 @@ class Product extends Component {
         <>
           {sizeKeys.map((key, index) => (
             <option
-              key={index}
+              key={`sizeKey${index}`}
               value={key}
               disabled={product.size[0][key] === 0}
               onClick={(e) => this.selectSize(e)}>
@@ -215,7 +212,6 @@ class Product extends Component {
                     -
                   </button>
                   <input
-                    class='quantityinput'
                     onChange={(e) =>
                       this.setState({ quantity: e.target.value })
                     }

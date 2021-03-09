@@ -102,9 +102,10 @@ export const isTokenValid = () => {
     let seconds = Object.entries(userInfo).filter(
       (key) => key[0] === 'seconds'
     );
-    if (parseInt(seconds[0][1]) + 3600000 < parseInt(currentTimeInSeconds)) {
-      // This means it has been over an hour and I need to clear the JWT from local storage as it
-      // has expired and other user info
+    if (parseInt(seconds[0][1]) + 10000 < parseInt(currentTimeInSeconds)) {
+      // This means it has been over an hour and I need to clear the JWT from local storage and remove the user from as it
+      // has expired and other user info\
+      console.log('no');
       localStorage.removeItem('userInfo');
     } else {
       user = userInfo;
