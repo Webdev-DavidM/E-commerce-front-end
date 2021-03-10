@@ -1,6 +1,6 @@
 The site has both adminstrator pages and customer pages, to access either please sign in as follows:
 
-Customer: username: footballblubber@googlemail.com, password: technics
+Customer: username: footballblubber@googlemail.com, password: Technics1
 
 Administrator: username: admin@company123.com, password: admin123
 
